@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.management import call_command
+from django.http import HttpResponse
 from .models import Job, Application
 
 # 🔍 Home Page with Search + Filters
@@ -30,11 +32,9 @@ def home(request):
 
     jobs = jobs.order_by('-posted_at')
 
-    # Dropdown values
     locations = Job.objects.values_list('location', flat=True).distinct()
     skills_list = Job.objects.values_list('skills', flat=True).distinct()
 
-    # Applied job IDs for logged-in user
     applied_job_ids = []
     if request.user.is_authenticated:
         applied_job_ids = Application.objects.filter(user=request.user).values_list('job_id', flat=True)
@@ -76,12 +76,12 @@ def login_view(request):
             return redirect('login')
     return render(request, 'core/login.html')
 
-# 🚪 Logout
+# 🚪 Logout View
 def logout_view(request):
     logout(request)
     return redirect('home')
 
-# 📤 Apply to Job (resume required)
+# 📤 Apply to Job
 @login_required
 def apply_job(request, job_id):
     job = Job.objects.get(id=job_id)
@@ -100,7 +100,7 @@ def apply_job(request, job_id):
             messages.success(request, "Application submitted successfully.")
     return redirect('home')
 
-# 📄 My Applications (shows resume link)
+# 📄 My Applications
 @login_required
 def my_applications(request):
     applications = Application.objects.filter(user=request.user).select_related('job').order_by('-applied_at')
@@ -108,10 +108,18 @@ def my_applications(request):
         'applications': applications
     })
 
-# 🙍‍♂️ Profile Page (latest uploaded resume preview)
+# 🙍‍♂️ Profile Page
 @login_required
 def profile(request):
     latest_resume = Application.objects.filter(user=request.user, resume__isnull=False).order_by('-applied_at').first()
     return render(request, 'core/profile.html', {
         'latest_resume': latest_resume
     })
+
+# 🛠️ Load dummy job data (temp)
+def load_jobs_fixture(request):
+    try:
+        call_command('loaddata', 'core/fixtures/dummy_jobs.json')
+        return HttpResponse("✅ Dummy jobs loaded successfully.")
+    except Exception as e:
+        return HttpResponse(f"❌ Error loading dummy jobs: {str(e)}")
