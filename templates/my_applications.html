@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+  <h2>📄 My Applications</h2>
+  <a href="{% url 'home' %}" class="btn btn-secondary my-3">← Back to Jobs</a>
+
+  {% for application in applications %}
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ application.job.title }} at {{ application.job.company }}</h5>
+        <p class="card-text">📍 <strong>Location:</strong> {{ application.job.location }}</p>
+        <p class="card-text">📅 <strong>Applied on:</strong> {{ application.applied_at|date:"Y-m-d H:i" }}</p>
+
+        {% if application.resume %}
+          <div class="mt-3">
+            <a href="{{ application.resume.url }}" class="btn btn-sm btn-outline-primary" target="_blank">
+              👁️ View Resume
+            </a>
+            <a href="{{ application.resume.url }}" class="btn btn-sm btn-outline-success" download>
+              ⬇️ Download Resume
+            </a>
+          </div>
+        {% else %}
+          <p class="text-danger">❌ No resume uploaded.</p>
+        {% endif %}
+      </div>
+    </div>
+  {% empty %}
+    <p class="text-muted">You haven't applied to any jobs yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}

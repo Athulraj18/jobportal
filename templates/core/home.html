@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load custom_filters %}  {# ✅ Load your custom template filters #}
+
+{% block content %}
+<div class="container my-4">
+  <h2 class="mb-4">💼 Job Listings</h2>
+
+  <!-- 🔍 Search & Filters -->
+  <form method="GET" class="row g-2 mb-4">
+    <div class="col-md-4">
+      <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="Search jobs...">
+    </div>
+    <div class="col-md-3">
+      <select name="location" class="form-select">
+        <option value="">All Locations</option>
+        {% for loc in locations %}
+          <option value="{{ loc }}" {% if loc == selected_location %}selected{% endif %}>{{ loc }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-3">
+      <select name="skills" class="form-select">
+        <option value="">All Skills</option>
+        {% for skill in skills_list %}
+          <option value="{{ skill }}" {% if skill == selected_skills %}selected{% endif %}>{{ skill }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-primary w-100">Search</button>
+    </div>
+  </form>
+
+  <!-- ✅ Flash Messages -->
+  {% if messages %}
+    <div class="mb-3">
+      {% for message in messages %}
+        <div class="alert alert-info">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <!-- 🧾 Job Listings -->
+  {% for job in jobs %}
+    <div class="card mb-3 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">{{ job.title }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ job.company }} - {{ job.location }}</h6>
+        <p class="card-text">{{ job.description }}</p>
+
+        <!-- ✅ Skills as badges -->
+        {% if job.skills %}
+          <p><strong>Skills:</strong>
+            {% for skill in job.skills|split:"," %}
+              <span class="badge bg-secondary me-1">{{ skill|trim }}</span>
+            {% endfor %}
+          </p>
+        {% else %}
+          <p class="text-muted"><strong>Skills:</strong> Not specified</p>
+        {% endif %}
+
+        <!-- ✅ Apply Button / Upload Resume -->
+        {% if user.is_authenticated %}
+          {% if job.id in applied_job_ids %}
+            <button class="btn btn-success" disabled>✅ Applied</button>
+          {% else %}
+            <form method="POST" action="{% url 'apply_job' job.id %}" enctype="multipart/form-data" class="d-inline">
+              {% csrf_token %}
+              <input type="file" name="resume" class="form-control d-inline w-auto mb-2" required>
+              <button type="submit" class="btn btn-primary">Apply</button>
+            </form>
+          {% endif %}
+        {% else %}
+          <a href="{% url 'login' %}" class="btn btn-outline-primary">Login to apply</a>
+        {% endif %}
+      </div>
+    </div>
+  {% empty %}
+    <p>No jobs found.</p>
+  {% endfor %}
+</div>
+{% endblock %}

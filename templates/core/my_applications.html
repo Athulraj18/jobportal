@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Applications</title>
+</head>
+<body>
+    <h1>📄 My Applications</h1>
+
+    <p><a href="/">← Back to Jobs</a> | <a href="/logout/">Logout</a></p>
+
+    {% if applications %}
+        <ul>
+            {% for app in applications %}
+                <li>
+                    <strong>{{ app.job.title }}</strong> at {{ app.job.company }}<br>
+                    Location: {{ app.job.location }}<br>
+                    Applied on: {{ app.applied_at|date:"Y-m-d H:i" }}
+                </li>
+                <hr>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You haven't applied to any jobs yet.</p>
+    {% endif %}
+</body>
+</html>

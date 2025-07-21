@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">👤 My Profile</h2>
+
+    <div class="card p-4 shadow-sm">
+        <h4 class="mb-3">Username: <strong>{{ request.user.username }}</strong></h4>
+
+        {% if latest_resume and latest_resume.resume %}
+            <p><strong>Latest Resume:</strong></p>
+            <a href="{{ latest_resume.resume.url }}" target="_blank" class="btn btn-outline-primary me-2">
+                📄 View Resume
+            </a>
+            <a href="{{ latest_resume.resume.url }}" download class="btn btn-outline-success">
+                ⬇️ Download Resume
+            </a>
+        {% else %}
+            <p class="text-muted">You haven't uploaded a resume yet.</p>
+        {% endif %}
+    </div>
+
+    <a href="{% url 'home' %}" class="btn btn-secondary mt-4">← Back to Jobs</a>
+</div>
+{% endblock %}
