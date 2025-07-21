@@ -1,0 +1,35 @@
+[
+  {
+    "model": "core.job",
+    "pk": 1,
+    "fields": {
+      "title": "Web Developer (Fresher)",
+      "company": "CodeCraft Inc.",
+      "location": "Kochi",
+      "description": "We are hiring fresh graduates for our web development team. Basic knowledge of Django or Flask is a plus.",
+      "skills": "Python,Django,HTML,Git"
+    }
+  },
+  {
+    "model": "core.job",
+    "pk": 2,
+    "fields": {
+      "title": "Full Stack Developer Intern",
+      "company": "DevCrate",
+      "location": "Remote",
+      "description": "Internship opportunity for final year students or recent graduates. Good opportunity to work on live projects with mentorship.",
+      "skills": "Python,Django,HTML/CSS,SQL"
+    }
+  },
+  {
+    "model": "core.job",
+    "pk": 3,
+    "fields": {
+      "title": "Frontend Developer",
+      "company": "BrightSoft Pvt Ltd",
+      "location": "Hyderabad",
+      "description": "Hiring ReactJS/JavaScript frontend developer with a good eye for design and responsive UI.",
+      "skills": "ReactJS,JavaScript,Bootstrap,Tailwind CSS"
+    }
+  }
+]
