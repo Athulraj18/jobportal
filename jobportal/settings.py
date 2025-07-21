@@ -27,7 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
-    'tailwind',
+    #'tailwind',
     # 'theme',  # Uncomment if you're using Tailwind's theme app
 ]
 
@@ -110,5 +110,5 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Tailwind CSS
-TAILWIND_APP_NAME = 'theme'  # Only if using tailwind
+#TAILWIND_APP_NAME = 'theme'  # Only if using tailwind
 INTERNAL_IPS = ['127.0.0.1']
