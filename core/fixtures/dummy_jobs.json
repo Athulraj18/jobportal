@@ -3,33 +3,33 @@
     "model": "core.job",
     "pk": 1,
     "fields": {
-      "title": "Web Developer (Fresher)",
-      "company": "CodeCraft Inc.",
-      "location": "Kochi",
-      "description": "We are hiring fresh graduates for our web development team. Basic knowledge of Django or Flask is a plus.",
-      "skills": "Python,Django,HTML,Git"
+      "title": "Frontend Developer",
+      "description": "Build modern UIs using React.js and Tailwind CSS.",
+      "location": "Remote",
+      "skills": "React, Tailwind",
+      "posted_at": "2024-07-15T10:00:00Z"
     }
   },
   {
     "model": "core.job",
     "pk": 2,
     "fields": {
-      "title": "Full Stack Developer Intern",
-      "company": "DevCrate",
-      "location": "Remote",
-      "description": "Internship opportunity for final year students or recent graduates. Good opportunity to work on live projects with mentorship.",
-      "skills": "Python,Django,HTML/CSS,SQL"
+      "title": "Backend Developer",
+      "description": "Work on Django APIs and business logic.",
+      "location": "Bangalore",
+      "skills": "Python, Django, DRF",
+      "posted_at": "2024-07-16T12:00:00Z"
     }
   },
   {
     "model": "core.job",
     "pk": 3,
     "fields": {
-      "title": "Frontend Developer",
-      "company": "BrightSoft Pvt Ltd",
-      "location": "Hyderabad",
-      "description": "Hiring ReactJS/JavaScript frontend developer with a good eye for design and responsive UI.",
-      "skills": "ReactJS,JavaScript,Bootstrap,Tailwind CSS"
+      "title": "Full Stack Intern",
+      "description": "Assist in full stack development tasks.",
+      "location": "Chennai",
+      "skills": "HTML, CSS, JS, Django",
+      "posted_at": "2024-07-17T14:00:00Z"
     }
   }
 ]
